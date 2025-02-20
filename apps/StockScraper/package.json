@@ -1,0 +1,68 @@
+{
+  "name": "@reverse-splits/StockScraper",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "StockScraper",
+    "projectType": "application",
+    "sourceRoot": "apps/StockScraper/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "apps/StockScraper/dist",
+          "format": [
+            "cjs"
+          ],
+          "bundle": false,
+          "main": "apps/StockScraper/src/main.ts",
+          "tsConfig": "apps/StockScraper/tsconfig.app.json",
+          "assets": [
+            "apps/StockScraper/src/assets"
+          ],
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        },
+        "configurations": {
+          "development": {},
+          "production": {
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            }
+          }
+        }
+      },
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "StockScraper:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "StockScraper:build:development"
+          },
+          "production": {
+            "buildTarget": "StockScraper:build:production"
+          }
+        }
+      }
+    }
+  }
+}
