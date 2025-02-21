@@ -1,10 +1,9 @@
-'use strict'
 
-import * as axios from 'axios';
 import { getMysqlConnection } from '@reverse-splits/mysqlConnector'
 import * as moment from 'moment-timezone';
+import { getStocks } from '@reverse-splits/HedgeFollowUtils';
 
-class HedgeFollowHelper {
+class HedgeFollowScraper {
     constructor() {
         this.defs = {
             THREAD: {
@@ -32,7 +31,7 @@ class HedgeFollowHelper {
 
     async mainThread() {
         try {
-            const stocks = await this.#getStocks();
+            const stocks = await getStocks();
 
             const upcomingSplits = stocks.filter((s) => {
                 const date = moment(s['exDate']).tz('America/New_York');
@@ -67,73 +66,6 @@ class HedgeFollowHelper {
         }
     }
 
-    #decodeResponse(str, k) {
-        let enc = "";
-        for (let i = 0; i < str.length; i++) {
-            const a = str.charCodeAt(i);
-
-            const b = a ^ k[i % 4];
-            enc = enc + String.fromCharCode(b);
-        }
-        return enc;
-    }
-
-    #getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min) + min);
-    }
-
-    #getToken(array, timestamp, power, divisor) {
-        let computedResult = 0;
-        for (let i = 0; i < array.length; i++)
-            computedResult += ((-1) ** (power + i) * array[i]);
-        return Math.floor((timestamp + computedResult) / divisor);
-    }
-
-
-    #genT() {
-        const array = [...Array(3)].map(_ => Math.floor(Math.random() * 10000))
-        const timestamp = Math.floor(Date.now() / 1000)
-        const divisor = this.#getRandomInt(11, 19)
-        const power = Math.round(Math.random()) + 1;
-
-        const token = this.#getToken(array, timestamp, power, divisor);
-        return {
-            'arr': array,
-            'ts': timestamp,
-            'd': divisor,
-            'p': power,
-            'tk': token,
-            'mts': Date.now()
-        };
-    }
-
-    async #getStocks() {
-        const data = {
-            params: {
-                'page': 'filler',
-                'requestId': 'latest_stock_splits',
-                'filteredCt': 100,
-                'totalCt': 100,
-                'limit_per_page': 100,
-                'offset': 0,
-                'sortVar': 'exDate',
-                'sortOrder': -1
-            },
-            'symbol': 'filler',
-            'infotrac': 'anotherfiller',
-            'id_params': this.#genT()
-        }
-
-
-        const response = await axios.post('https://hedgefollow.com/ggg/web_request.php', data, {
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        });
-        
-        const stockData = `[${this.#decodeResponse(atob(response.data), this.ARRAYKEY).split(';')[0].split('= ')[1].split('],')[0].split(': [')[1]}]`;
-        
-        return JSON.parse(stockData);
-    }
-
     async #checkIfStockExists(ticker, exDate) {
         const [results] = await this.mysqlConnection.execute('SELECT * FROM stocks WHERE symbol=? AND exDate=?', [ticker, exDate]);
 
@@ -151,4 +83,4 @@ class HedgeFollowHelper {
     }
 }
 
-module.exports = HedgeFollowHelper
+module.exports = HedgeFollowScraper

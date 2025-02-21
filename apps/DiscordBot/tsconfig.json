@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../libs/mysqlConnector"
+    },
+    {
       "path": "./tsconfig.app.json"
     }
   ]

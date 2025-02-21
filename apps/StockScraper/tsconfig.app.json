@@ -10,7 +10,7 @@
   "exclude": [],
   "references": [
     {
-      "path": "../../libs/mysqlConnector/tsconfig.lib.json"
+      "path": "../../libs/HedgeFollowUtils/tsconfig.lib.json"
     }
   ]
 }

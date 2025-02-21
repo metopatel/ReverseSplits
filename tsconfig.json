@@ -11,6 +11,12 @@
     },
     {
       "path": "./apps/DiscordBot"
+    },
+    {
+      "path": "./libs/HedgeFollowUtils"
+    },
+    {
+      "path": "./libs/SECUtils"
     }
   ]
 }
