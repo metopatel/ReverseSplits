@@ -17,6 +17,21 @@
     },
     {
       "path": "./libs/SECUtils"
+    },
+    {
+      "path": "./libs/Common"
+    },
+    {
+      "path": "./libs/Services/HedgeFollowClient"
+    },
+    {
+      "path": "./libs/Services/RobinhoodClient"
+    },
+    {
+      "path": "./libs/Database/MySQLClient"
+    },
+    {
+      "path": "./libs/Services/SECEdgarClient"
     }
   ]
 }

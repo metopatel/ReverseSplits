@@ -52,6 +52,8 @@
   },
   "workspaces": [
     "apps/*",
-    "libs/*"
+    "libs/*",
+    "libs/Services/*",
+    "libs/Database/*"
   ]
 }
