@@ -4,21 +4,6 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/StockScraper"
-    },
-    {
-      "path": "./libs/mysqlConnector"
-    },
-    {
-      "path": "./apps/DiscordBot"
-    },
-    {
-      "path": "./libs/HedgeFollowUtils"
-    },
-    {
-      "path": "./libs/SECUtils"
-    },
-    {
       "path": "./libs/Common"
     },
     {
@@ -28,10 +13,10 @@
       "path": "./libs/Services/RobinhoodClient"
     },
     {
-      "path": "./libs/Database/MySQLClient"
+      "path": "./libs/Services/SECEdgarClient"
     },
     {
-      "path": "./libs/Services/SECEdgarClient"
+      "path": "./libs/Database"
     }
   ]
 }

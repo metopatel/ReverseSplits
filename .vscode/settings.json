@@ -6,8 +6,10 @@
 		"enddt",
 		"HEDGEFOLLOW",
 		"infotrac",
+		"Robinhood",
 		"startdt",
 		"SXTP",
 		"updatestocklist"
-	]
+	],
+	"typescript.tsdk": "node_modules\\typescript\\lib"
 }

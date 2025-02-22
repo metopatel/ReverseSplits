@@ -13,6 +13,7 @@
     "moment": "^2.30.1",
     "moment-timezone": "^0.5.47",
     "mysql2": "^3.12.0",
+    "typeorm": "^0.3.20",
     "yahoo-finance2": "^2.13.3"
   },
   "devDependencies": {
